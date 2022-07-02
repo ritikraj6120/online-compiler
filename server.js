@@ -5,8 +5,8 @@ const morgan=require('morgan');
 const totalCPUs = require("os").cpus().length;
 const port = process.env.PORT || 5000;
 if (cluster.isMaster) {
-	console.log(`Number of CPUs is ${totalCPUs}`);
-	console.log(`Master ${process.pid} is running`);
+	// console.log(`Number of CPUs is ${totalCPUs}`);
+	// console.log(`Master ${process.pid} is running`);
 
 	// Fork workers.
 	for (let i = 0; i < totalCPUs; i++) {
@@ -14,13 +14,13 @@ if (cluster.isMaster) {
 	}
 
 	cluster.on("exit", (worker, code, signal) => {
-		console.log(`worker ${worker.process.pid} died`);
-		console.log("Let's fork another worker!");
+		// console.log(`worker ${worker.process.pid} died`);
+		// console.log("Let's fork another worker!");
 		cluster.fork();
 	});
 } else {
 	const app = express();
-	console.log(`Worker ${process.pid} started`);
+	// console.log(`Worker ${process.pid} started`);
 
 	// app.get("/", (req, res) => {
 	// 	res.send("Hello World!");
@@ -34,7 +34,7 @@ if (cluster.isMaster) {
 	app.use('/',Router);
 
 	app.listen(port, () => {
-		console.log(`App listening on port ${port}`);
+		// console.log(`App listening on port ${port}`);
 	});
 }
 // app.get('/compute', (req, res) => {
